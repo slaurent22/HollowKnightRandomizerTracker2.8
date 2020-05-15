@@ -563,13 +563,13 @@ function getEntities() {
 		"hasDreamGate": {
 			"enabled": true,
 			"sprite": "DreamGate.png",
-			"name": "Teatcher Mask", 
+			"name": "Dream Gate", 
 			"type":"generic"
 		},
 		"dreamNailUpgraded": {
 			"sprite": "DreamNail2.png",
 			"enabled": true,
-			"name": "Teatcher Mask", 
+			"name": "Awoken Dreamnail", 
 			"type":"generic"
 		},
 		"charmSlots" :{
