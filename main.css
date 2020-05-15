@@ -118,7 +118,8 @@ div.charmDiv > img {
 }
 
 .container > div.itemDiv:not(.charmDiv) >  img.gaveItem {
-	box-shadow: 0px 0px 5px 5px #FF0000;
+	filter: grayscale(1) sepia(1) hue-rotate(275deg) saturate(2) contrast(1.2);
+	/*box-shadow: 0px 0px 5px 5px #FF0000;*/
 }
 
 .misc-container {
