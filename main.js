@@ -619,6 +619,10 @@ $( document ).ready(function() {
 				  break;
 				  
 			  case "generic":
+                  if (item.name == "Dream Nail") {
+                      img.attr('src', "images/" + item.levelSprites[0]);
+                      break;
+                  }
                   img.attr('src', "images/" + item.sprite);
 				  break;	
 			  case "charmNotch":
@@ -983,6 +987,12 @@ $( document ).ready(function() {
 						  break;
                           case "generic":
                               setSelected(data[name], id);
+                              if ("levelSprites" in item && data["hasDreamNail"] && !data["dreamNailUpgraded"]) {
+                                  img.attr("src", "images/" + entities["hasDreamNail"].levelSprites[0]);
+                              }
+                              else if ("levelSprites" in item && data["hasDreamNail"] && data["dreamNailUpgraded"]) {
+                                  img.attr("src", "images/" + entities["hasDreamNail"].levelSprites[1]);
+                              }
 							  
 							  break;	
 					  }
@@ -1010,7 +1020,8 @@ $( document ).ready(function() {
 		  });
 
 		  updateVisible();
-		  
+		  /*
+		  //if ($('#hasDreamNail').length > 0 && $('#dreamNailUpgraded').length > 0 && !isEditing) {
 		  if ($('#hasDreamNail').length > 0 && $('#dreamNailUpgraded').length > 0 && !isEditing) {
 			  if ($('#hasDreamNail').hasClass("selected") && $('#dreamNailUpgraded').hasClass("selected"))
 				  $('#hasDreamNail').removeClass("selected").parent().hide();
@@ -1019,6 +1030,7 @@ $( document ).ready(function() {
 			  else
 				  $('#dreamNailUpgraded').removeClass("selected").parent().hide();
 		  }
+		  */
 	  }
 	  
 	  function updateVisible() {

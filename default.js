@@ -555,7 +555,10 @@ function getEntities() {
 			"type":"generic"
 		},
 		"hasDreamNail": {
-			"sprite": "DreamNail1.png",
+			"levelSprites": [
+                "DreamNail1.png",
+                "DreamNail2.png"
+            ],
 			"enabled": true,
 			"name": "Dream Nail", 
             "type": "generic"
@@ -564,12 +567,6 @@ function getEntities() {
 			"enabled": true,
 			"sprite": "DreamGate.png",
 			"name": "Dream Gate", 
-			"type":"generic"
-		},
-		"dreamNailUpgraded": {
-			"sprite": "DreamNail2.png",
-			"enabled": true,
-			"name": "Awoken Dreamnail", 
 			"type":"generic"
 		},
 		"charmSlots" :{
