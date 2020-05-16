@@ -12,6 +12,8 @@ $( document ).ready(function() {
 	  var lastCommand;
 	  */
 
+	  var DreamerDupeFix;
+
 	  var currentId;
 	  var urlParams;
 	  
@@ -1022,6 +1024,32 @@ $( document ).ready(function() {
 		  });
 
 		  updateVisible();
+
+		  var n = ((data["maskBrokenHegemol"] == true) ? 1 : 0) + ((data["maskBrokenMonomon"] == true) ? 1 : 0) + ((data["maskBrokenLurien"] == true) ? 1 : 0) 
+
+		  console.log(n)
+		  console.log(data["guardiansDefeated"])
+		  
+		  if(n < 3 && n < data["guardiansDefeated"]){
+		  	  if(!data["maskBrokenHegemol"] && n < data["guardiansDefeated"] ){
+		  	  		n++;
+		  	  		if(entities["maskBrokenHegemol"].enabled)
+			  			$('#maskBrokenHegemol').addClass("selected");
+		  	  }
+	  	  	  if(!data["maskBrokenMonomon"] && n < data["guardiansDefeated"]){
+		  	  		n++;
+		  	  		if(entities["maskBrokenHegemol"].enabled)
+			  			$('#maskBrokenMonomon').addClass("selected");
+		  	  }
+	  	  	  if(!data["maskBrokenLurien"] && n < data["guardiansDefeated"]){
+		  	  		n++;
+	  	  			if(entities["maskBrokenHegemol"].enabled)
+			  			$('#maskBrokenLurien').addClass("selected");
+		  	  }
+	  	  }
+		  
+
+
 		  /*
 		  //if ($('#hasDreamNail').length > 0 && $('#dreamNailUpgraded').length > 0 && !isEditing) {
 		  if ($('#hasDreamNail').length > 0 && $('#dreamNailUpgraded').length > 0 && !isEditing) {
