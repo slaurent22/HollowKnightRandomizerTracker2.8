@@ -1025,10 +1025,7 @@ $( document ).ready(function() {
 
 		  updateVisible();
 
-		  var n = ((data["maskBrokenHegemol"] == true) ? 1 : 0) + ((data["maskBrokenMonomon"] == true) ? 1 : 0) + ((data["maskBrokenLurien"] == true) ? 1 : 0) 
-
-		  console.log(n)
-		  console.log(data["guardiansDefeated"])
+		  var n = ((data["maskBrokenHegemol"] == true) ? 1 : 0) + ((data["maskBrokenMonomon"] == true) ? 1 : 0) + ((data["maskBrokenLurien"] == true) ? 1 : 0);
 		  
 		  if(n < 3 && n < data["guardiansDefeated"]){
 		  	  if(!data["maskBrokenHegemol"] && n < data["guardiansDefeated"] ){
