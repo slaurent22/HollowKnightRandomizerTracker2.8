@@ -852,7 +852,7 @@ $( document ).ready(function() {
 		function updatePlayerData(minData) {
 
 			if (minData != undefined && "var" in minData) {
-				if(minData.var == "Reload") {
+				if(minData.var == "Reload" || minData.var == "GameExiting") {
 					location.reload(true);
 					return;
 				}
