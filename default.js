@@ -482,6 +482,12 @@ function getEntities() {
 			"name": "Watcher Mask", 
 			"type":"generic"
 		},
+		"dreamersDupe": {
+			"sprite": "mask_dreamers.png",
+			"enabled": true,
+			"name": "Dreamers Dupe", 
+			"type":"generic"
+		},
 		"Inv_0027_spell_slot.png": {
 			"sprite": "Inv_0027_spell_slot.png",
 			"enabled": false,
@@ -801,7 +807,8 @@ function getDefault() {
                 "items": [
 					"maskBrokenHegemol",
 					"maskBrokenMonomon",
-					"maskBrokenLurien"
+					"maskBrokenLurien",
+					"dreamersDupe"
 				]	
 			},
 			"misc": {
