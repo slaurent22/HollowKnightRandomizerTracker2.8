@@ -842,9 +842,8 @@ $( document ).ready(function() {
 				$("#quakeLevel").attr('src', "images/" +  entities["quakeLevel"].levelSprites[0] );
 			}
 
-
-
 			$.each(".selected").removeClass("selected");
+			$.each(".gaveItem").removeClass("gaveItem");
 
 			send("json");
 
