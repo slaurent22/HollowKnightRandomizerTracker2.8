@@ -20,6 +20,8 @@ namespace PlayerDataDump
 
         private static SocketServer _ss;
 
+        public static bool firstConnect = true;
+
         /// <summary>
         /// Fetches the list of the current mods installed.
         /// </summary>
@@ -53,6 +55,7 @@ namespace PlayerDataDump
                 ModHooks.Instance.SetPlayerIntHook += ss.EchoInt;
 
                 ModHooks.Instance.ApplicationQuitHook += ss.OnQuit;
+                ModHooks.Instance.ApplicationQuitHook += Instance_ApplicationQuitHook;
             });
 
             //Setup ProfileStorage Server
@@ -63,6 +66,12 @@ namespace PlayerDataDump
             On.PlayerData.Reset += PlayerData_Reset;
 
             Log("Initialized PlayerDataDump");
+        }
+
+        private void Instance_ApplicationQuitHook()
+        {
+            _ss.OnQuit();
+            Unload();
         }
 
         private void PlayerData_Reset(On.PlayerData.orig_Reset orig, PlayerData self)

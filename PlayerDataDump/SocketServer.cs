@@ -84,6 +84,15 @@ namespace PlayerDataDump
         protected override void OnOpen()
         {
             PlayerDataDump.Instance.Log("OPEN");
+            if (PlayerDataDump.firstConnect)
+            {
+                SendMessage("Reload", "true");
+                PlayerDataDump.firstConnect = false;
+            } else
+            {
+                Send(GetJson());
+                GetRandom();
+            }
         }
 
         public void SendMessage(string var, string value)
