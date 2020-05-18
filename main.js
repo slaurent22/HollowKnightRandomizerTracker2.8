@@ -620,6 +620,11 @@ $( document ).ready(function() {
 						countDiv.addClass('counter');
 						itemDiv.append(countDiv);
 					}
+					if ("sell" in item && item.multiple) {
+						var countDiv = $('<div></div>').attr({ 'id': name + '_Filledcount'});
+						countDiv.addClass('charmSlotsFilled').css("display", "block");
+						itemDiv.append(countDiv);
+					}
 					break;
 					
 				case "generic":
@@ -826,10 +831,9 @@ $( document ).ready(function() {
 			ws.send(command);
 		}
 
-		
-				
 		function getPlayerData() {
 			console.log("Refreshing data");
+			data = {};
 			send("json");
 		}
 		
@@ -837,6 +841,7 @@ $( document ).ready(function() {
 
 			if (minData != undefined && "var" in minData) {
 				if (minData.var == "SaveLoaded" || minData.var == "NewSave") {
+					console.log("new game")
 					send("json");
 					return;
 				}else{
@@ -1025,14 +1030,19 @@ $( document ).ready(function() {
 
 			updateVisible();
 
+			//todo only update on this being sent
 			var n = ((data["maskBrokenHegemol"] == true) ? 1 : 0) + ((data["maskBrokenMonomon"] == true) ? 1 : 0) + ((data["maskBrokenLurien"] == true) ? 1 : 0) 
 	
 			if(n < data["guardiansDefeated"]){
 					if(entities["dreamersDupe"].enabled)
 						$('#dreamersDupe').addClass("selected");
 			}
-			
 
+			//todo only update on this being sent
+			$('#trinket1_Filledcount').html( data["soldTrinket1"] );
+			$('#trinket2_Filledcount').html( data["soldTrinket2"] );
+			$('#trinket3_Filledcount').html( data["soldTrinket3"] );
+			$('#trinket4_Filledcount').html( data["soldTrinket4"] );
 
 			/*
 			//if ($('#hasDreamNail').length > 0 && $('#dreamNailUpgraded').length > 0 && !isEditing) {

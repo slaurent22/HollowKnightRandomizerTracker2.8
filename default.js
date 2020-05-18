@@ -343,28 +343,32 @@ function getEntities() {
 			"enabled": true,
 			"name": "", 
 			"type":"item",
-			"multiple": true
+			"multiple": true,
+			"sell": true
 		},
 		"trinket4": {
 			"sprite": "inv_item__0011_arcane-egg - Copy.png",
 			"enabled": true,
 			"name": "", 
 			"type":"item",
-			"multiple": true
+			"multiple": true,
+			"sell": true
 		},
 		"trinket2": {
 			"sprite": "inv_item__0012_hallownest-seal - Copy.png",
 			"enabled": true,
 			"name": "", 
 			"type":"item",
-			"multiple": true
+			"multiple": true,
+			"sell": true
 		},
 		"trinket1": {
 			"sprite": "inv_item__0013_wanderers-journal - Copy.png",
 			"enabled": true,
 			"name": "", 
 			"type":"item",
-			"multiple": true
+			"multiple": true,
+			"sell": true
 		},
 		"simpleKeys": {
 			"sprite": "inv_item__00014_graveyard_key - Copy.png",
