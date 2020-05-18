@@ -18,6 +18,8 @@ namespace PlayerDataDump
         private readonly WebSocketServer _wss = new WebSocketServer(11420);
         internal static PlayerDataDump Instance;
 
+        private static SocketServer _ss;
+
         /// <summary>
         /// Fetches the list of the current mods installed.
         /// </summary>
@@ -41,6 +43,8 @@ namespace PlayerDataDump
             //Setup websockets server
             _wss.AddWebSocketService<SocketServer>("/playerData", ss =>
             {
+                _ss = ss;
+
                 ModHooks.Instance.NewGameHook += ss.NewGame;
                 ModHooks.Instance.SavegameLoadHook += ss.LoadSave;
                 ModHooks.Instance.BeforeSavegameSaveHook += ss.BeforeSave;
@@ -50,13 +54,21 @@ namespace PlayerDataDump
 
                 ModHooks.Instance.ApplicationQuitHook += ss.OnQuit;
             });
-            
+
             //Setup ProfileStorage Server
             _wss.AddWebSocketService<ProfileStorageServer>("/ProfileStorage", ss => { });
 
             _wss.Start();
 
+            On.PlayerData.Reset += PlayerData_Reset;
+
             Log("Initialized PlayerDataDump");
+        }
+
+        private void PlayerData_Reset(On.PlayerData.orig_Reset orig, PlayerData self)
+        {
+            orig(self);
+            _ss.NewGame();
         }
 
         /// <summary>
