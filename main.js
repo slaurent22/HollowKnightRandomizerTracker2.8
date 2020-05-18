@@ -833,6 +833,14 @@ $( document ).ready(function() {
 
 		function getPlayerData() {
 			console.log("Refreshing data");
+
+			$(".selected").each(function(i, obj) {
+    		$(this).removeClass("selected");
+			});
+			$(".gaveItem").each(function(i, obj) {
+    		$(this).removeClass("gaveItem");
+			});
+
 			if(data){
 				data["screamLevel"] = 0;
 				data["fireballLevel"] = 0;
@@ -844,11 +852,7 @@ $( document ).ready(function() {
 				data["gaveSlykey"] = false;
 				data["usedWhiteKey"] = false;
 				data["openedLoveDoor"] = false;
-
 			}
-
-			$.each(".selected").removeClass("selected");
-			$.each(".gaveItem").removeClass("gaveItem");
 
 			send("json");
 
