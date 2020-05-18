@@ -833,10 +833,21 @@ $( document ).ready(function() {
 
 		function getPlayerData() {
 			console.log("Refreshing data");
-			data = {};
+			if(data){
+				data["screamLevel"] = 0;
+				data["fireballLevel"] = 0;
+				data["quakeLevel"] = 0;
+				$("#screamLevel").attr('src', "images/" +  entities["screamLevel"].levelSprites[0] );
+				$("#fireballLevel").attr('src', "images/" +  entities["fireballLevel"].levelSprites[0] );
+				$("#quakeLevel").attr('src', "images/" +  entities["quakeLevel"].levelSprites[0] );
+			}
+
+
 
 			$.each(".selected").removeClass("selected");
+
 			send("json");
+
 		}
 		
 		function updatePlayerData(minData) {
@@ -844,6 +855,7 @@ $( document ).ready(function() {
 			if (minData != undefined && "var" in minData) {
 				if (minData.var == "SaveLoaded" || minData.var == "NewSave") {
 					console.log("new game")
+					send("json");
 					getPlayerData();
 					return;
 				}else{
