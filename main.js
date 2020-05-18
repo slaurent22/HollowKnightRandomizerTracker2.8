@@ -844,7 +844,7 @@ $( document ).ready(function() {
 			if (minData != undefined && "var" in minData) {
 				if (minData.var == "SaveLoaded" || minData.var == "NewSave") {
 					console.log("new game")
-					send("json");
+					getPlayerData();
 					return;
 				}else{
 					var name = minData.var;
