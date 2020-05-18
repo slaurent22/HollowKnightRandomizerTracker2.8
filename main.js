@@ -852,6 +852,11 @@ $( document ).ready(function() {
 		function updatePlayerData(minData) {
 
 			if (minData != undefined && "var" in minData) {
+				if(minData.var == "Reload") {
+					location.reload(true);
+					return;
+				}
+
 				if (minData.var == "SaveLoaded" || minData.var == "NewSave") {
 					console.log("new game")
 					send("json");
