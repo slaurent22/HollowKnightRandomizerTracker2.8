@@ -834,6 +834,8 @@ $( document ).ready(function() {
 		function getPlayerData() {
 			console.log("Refreshing data");
 			data = {};
+
+			$.each(".selected").removeClass("selected");
 			send("json");
 		}
 		
