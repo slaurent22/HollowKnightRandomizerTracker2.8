@@ -597,8 +597,8 @@ $( document ).ready(function() {
 					img.attr('src', "images/" + item.sprite);
 					itemDiv.addClass('charmDiv');
 					itemDiv.removeClass("hideIfSet");
-					itemDiv.css("width", (1 + (156 * (container.scale/100))) + "px");
-					itemDiv.css("height", (1 + (156 * (container.scale/100))) + "px");
+					//itemDiv.css("width", (1 + (156 * (container.scale/100))) + "px");
+					//itemDiv.css("height", (1 + (156 * (container.scale/100))) + "px");
 					break;
 					
 				case "spell":
