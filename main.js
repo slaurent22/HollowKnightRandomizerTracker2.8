@@ -840,6 +840,11 @@ $( document ).ready(function() {
 				$("#screamLevel").attr('src', "images/" +  entities["screamLevel"].levelSprites[0] );
 				$("#fireballLevel").attr('src', "images/" +  entities["fireballLevel"].levelSprites[0] );
 				$("#quakeLevel").attr('src', "images/" +  entities["quakeLevel"].levelSprites[0] );
+
+				data["gaveSlykey"] = false;
+				data["usedWhiteKey"] = false;
+				data["openedLoveDoor"] = false;
+
 			}
 
 			$.each(".selected").removeClass("selected");
