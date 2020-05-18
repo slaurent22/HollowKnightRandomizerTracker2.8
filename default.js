@@ -690,10 +690,10 @@ function getDefault() {
 		},
 		"containers" : {
 			"charms": {
-				"itemsPerRow": 9,
+				"itemsPerRow": 10,
 				"scale" : 40,
-				"width" : 510,
-				"height" : 310,
+				"width" : 500,
+				"height" : 200,
 				"left": 0,
 				"top":25,
 				"flourish" :"topRight",
