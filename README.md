@@ -2,7 +2,7 @@
 
 This is the UI side of a tracker for items in Hollow Knight as an overlay in OBS.  You'll need to install this for it to work: https://drive.google.com/open?id=1BBQzGg9t5DIrKAQ6y5Dn-sMMgnoBedT5. (also requires Modding API: https://drive.google.com/open?id=0B_b9PFqx_PR9X1ZrWGFxUGdydTg) Big Thanks to @KDT for getting the Game Side working to get this data out.  This wouldn't work at all without it.  (and of course to Team Cherry for an amazing game)
 
-![Demo](https://github.com/kaydeetee/HollowKnightRandomizerTracker/blob/master/demo.png "Demo")
+![Demo](https://github.com/KayDeeTee/HollowKnightRandomizerTracker2.8/blob/master/demo.png "Demo")
 
 # Setup & Configuration
 
