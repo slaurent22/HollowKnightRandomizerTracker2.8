@@ -70,14 +70,16 @@ namespace PlayerDataDump
 
         private void Instance_ApplicationQuitHook()
         {
-            _ss.OnQuit();
+            if (_ss != null)
+                _ss.OnQuit();
             Unload();
         }
 
         private void PlayerData_Reset(On.PlayerData.orig_Reset orig, PlayerData self)
         {
             orig(self);
-            _ss.NewGame();
+            if(_ss != null)
+                _ss.NewGame();
         }
 
         /// <summary>

@@ -104,12 +104,14 @@ namespace PlayerDataDump
 
         public void LoadSave(int slot)
         {
+            if (State != WebSocketState.Open) return;
             GetRandom();
             SendMessage("SaveLoaded", "true");
         }
 
         public void BeforeSave(SaveGameData data)
         {
+            if (State != WebSocketState.Open) return;
             SendMessage("SaveLoaded", "true");
         }
 
@@ -152,7 +154,7 @@ namespace PlayerDataDump
             {
                 EchoBool("gotCharm_36", true);
             }
-            if (IntKeysToSend.Contains(var) || var.EndsWith("Level") || var.StartsWith("trinket") || var == "nailSmithUpgrades" || var == "rancidEggs" || var == "royalCharmState" || var == "dreamOrbs" || var.EndsWith("Collected"))
+            if (IntKeysToSend.Contains(var) || var.EndsWith("Level") || var.StartsWith("trinket") || var.StartsWith("soldTrinket") || var == "nailSmithUpgrades" || var == "rancidEggs" || var == "royalCharmState" || var == "dreamOrbs" || var.EndsWith("Collected"))
             {
                 SendMessage(var, value.ToString());
             }
@@ -169,6 +171,7 @@ namespace PlayerDataDump
 
         public void GetRandom()
         {
+            if (State != WebSocketState.Open) return;
             try
             {
                 var settings = RandomizerMod.RandomizerMod.Instance.Settings;
@@ -246,6 +249,7 @@ namespace PlayerDataDump
 
         public void NewGame()
         {
+            if (State != WebSocketState.Open) return;
             GetRandom();
             SendMessage("NewSave", "true");
         }
@@ -253,6 +257,7 @@ namespace PlayerDataDump
 
         public void OnQuit()
         {
+            if (State != WebSocketState.Open) return;
             SendMessage("GameExiting", "true");
         }
 
