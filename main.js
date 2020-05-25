@@ -926,10 +926,14 @@ $( document ).ready(function() {
 										$(id).hide();
 									else
 										$(id).show();
-									if (data[name.replace('got', 'equipped')] && !img.hasClass('equipped'))
+									if (data[name.replace('got', 'equipped')] && !img.hasClass('equipped')){
 										img.addClass('equipped');
-									else if (!data[name.replace('got', 'equipped')] && img.hasClass('equipped'))
+										img.parent().addClass('jello-horizontal');
+									}
+									else if (!data[name.replace('got', 'equipped')] && img.hasClass('equipped')){
 										img.removeClass('equipped');
+										img.parent().removeClass('jello-horizontal');
+									}
 								} else {
 									setSelected(data[name], id);
 									if (!$(id).hasClass('selected'))
@@ -937,10 +941,14 @@ $( document ).ready(function() {
 									else
 										$(id).show();
 
-									if (data[name.replace('got', 'equipped')] && !img.hasClass('equipped'))
+									if (data[name.replace('got', 'equipped')] && !img.hasClass('equipped')){
 										img.addClass('equipped');
-									else if (!data[name.replace('got', 'equipped')] && img.hasClass('equipped'))
+										img.parent().addClass('jello-horizontal');
+									}
+									else if (!data[name.replace('got', 'equipped')] && img.hasClass('equipped')){
 										img.removeClass('equipped');
+										img.parent().removeClass('jello-horizontal');
+									}
 
 
 
@@ -973,6 +981,7 @@ $( document ).ready(function() {
 
 							case "spell":
 								setSelected(data[name] > 0, id);
+
 								if ("levelSprites" in item && data[name] - 1 > 0 && data[name] - 1 <= item.levelSprites.length) {
 									img.attr("src", "images/" + item.levelSprites[data[name] - 1]);
 								}
@@ -1014,10 +1023,14 @@ $( document ).ready(function() {
 									setMultipleSelected(data[name] > 0, id);
 									$(id + '_Filledcount').html(data.charmSlotsFilled);
 									$(id + '_count').html(data.charmSlots);
-									if (data.charmSlots < data.charmSlotsFilled)
-										$(id + '_Filledcount').css('color', "#FF0000");
-									else
+									if (data.charmSlots < data.charmSlotsFilled){
+										//$('.charmDiv').each(function(i,e){ $(this).addClass('vibrate-3') });
+										$(id + '_Filledcount').css('color', "rgb(230,115,170)");										
+									}
+									else{
+										//$('.charmDiv').each(function(i,e){ $(this).removeClass('vibrate-3') });
 										$(id + '_Filledcount').css('color', "#FFFFFF");
+									}
 
 								}
 							break;
@@ -1102,10 +1115,14 @@ $( document ).ready(function() {
 		}
 		
 		function setSelected(has, id) {
-			if (has && !$(id).hasClass('selected')) 
+			if (has && !$(id).hasClass('selected')) {
+				$(id).parent().addClass('jello-horizontal');
 				$(id).addClass('selected').parent().removeClass('hideIfSet');
-			else if (!has && $(id).hasClass('selected'))
+			}
+			else if (!has && $(id).hasClass('selected')){
+				$(id).parent().removeClass('jello-horizontal');
 				$(id).removeClass('selected').parent().addClass('hideIfSet');
+			}
 		}
 		
 		function setMultipleSelected(has, id) {
