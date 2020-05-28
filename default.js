@@ -622,6 +622,32 @@ function getDefault() {
 			"version":1.0
 		},
 		"misc_containers" : {
+			"percent" : {
+				enabled : false,
+				text: "{0}%",
+				dataSource: "data",
+				dataElement: "tpercent",
+				left: 355,
+				top: 40,
+				width: 140,
+				height:20,
+				scale: 100,
+				color: "#FFFFFF",
+				fontSize: 16
+			},
+			"rpercent" : {
+				enabled : false,
+				text: "{0}%",
+				dataSource: "data",
+				dataElement: "rpercent",
+				left: 355,
+				top: 80,
+				width: 140,
+				height:20,
+				scale: 100,
+				color: "#FFFFFF",
+				fontSize: 16
+			},
 			"seed" : {
 				enabled : true,
 				text: "Seed: {0}",
