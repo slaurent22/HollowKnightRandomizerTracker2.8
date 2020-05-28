@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using Modding;
+﻿using Modding;
+using System.Collections.Generic;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using UnityEngine;
+using System.Reflection;
 
 namespace PlayerDataDump
 {
@@ -11,6 +12,11 @@ namespace PlayerDataDump
         public SocketServer()
         {
             IgnoreExtensions = true;
+        }
+
+        private bool PlayerData_GetBool(On.PlayerData.orig_GetBool orig, PlayerData self, string boolName)
+        {
+            throw new System.NotImplementedException();
         }
 
         private static readonly HashSet<string> IntKeysToSend = new HashSet<string> {"simpleKeys", "nailDamage", "maxHealth", "MPReserveMax", "ore", "rancidEggs", "grubsCollected", "charmSlotsFilled", "charmSlots", "flamesCollected" };
@@ -34,6 +40,7 @@ namespace PlayerDataDump
                     break;
                 case "json":
                     Send(GetJson());
+                    SendPercentage();
                     GetRandom();
                     break;
                 default:
@@ -91,6 +98,7 @@ namespace PlayerDataDump
             } else
             {
                 Send(GetJson());
+                SendPercentage();
                 GetRandom();
             }
         }
@@ -143,6 +151,7 @@ namespace PlayerDataDump
             {
                 SendMessage(var, value.ToString());
             }
+            SendPercentage();
             PlayerData.instance.SetBoolInternal(var, value);
             SendMessage("bench", PlayerData.instance.respawnScene.ToString());
         }
@@ -158,6 +167,7 @@ namespace PlayerDataDump
             {
                 SendMessage(var, value.ToString());
             }
+            SendPercentage();
             PlayerData.instance.SetIntInternal(var, value);
         }
 
@@ -167,6 +177,30 @@ namespace PlayerDataDump
             string json = JsonUtility.ToJson(playerData);
 
             return json;
+        }
+
+        public void SendPercentage()
+        {
+            if (State != WebSocketState.Open) return;
+            try
+            {               
+                int a = RandomizerMod.RandoLogger.obtainedLocations.Count;
+                int b = RandomizerMod.RandoLogger.randomizedLocations.Count;
+                int c = RandomizerMod.RandoLogger.uncheckedLocations.Count;
+
+                float tPercent = Mathf.Round((1000f * a) / (float)b) /10f;
+                float rPercent = Mathf.Round((1000f * a) / (float)(a+c)) / 10f;
+
+                SendMessage("tpercent", PlayerData.instance.completionPercentage.ToString());
+
+                //SendMessage("tpercent", tPercent.ToString());
+                SendMessage("rpercent", rPercent.ToString());
+                
+                
+            } catch
+            {
+
+            }
         }
 
         public void GetRandom()
@@ -211,6 +245,7 @@ namespace PlayerDataDump
                         !settings.RandomizeCharmNotches && !settings.RandomizeRancidEggs && !settings.RandomizeRelics && settings.RandomizeMaps &&
                         settings.RandomizeStags && settings.RandomizeGrubs && settings.RandomizeWhisperingRoots;
                     bool presetSuperJunkPit = presetJunkPit && settings.RandomizeMaps && settings.RandomizeStags && settings.RandomizeGrubs && settings.RandomizeWhisperingRoots;
+                    bool presetSuperMiniJunkPit = presetJunkPit && settings.RandomizeStags;
 
                     SendMessage("seed", settings.Seed.ToString());
                     if (settings.AcidSkips && settings.FireballSkips && settings.MildSkips && settings.ShadeSkips && settings.SpikeTunnels && settings.DarkRooms && settings.SpicySkips)
@@ -219,9 +254,11 @@ namespace PlayerDataDump
                         SendMessage("mode", "Easy");
                     else
                         SendMessage("mode", "Custom");
-                    
+
                     if (presetSuperJunkPit)
                         msgText = "Super Junk Pit";
+                    else if (presetSuperMiniJunkPit)
+                        msgText = "Mini Super Junk Pit";
                     else if (presetJunkPit)
                         msgText = "Junk Pit";
                     else if (presetCollector)
