@@ -158,8 +158,12 @@ $( document ).ready(function() {
 				buttons: {
 					"Done":function(){
 						map = JSON.parse(LZString.decompressFromEncodedURIComponent(urlConfig));
-						profileId = $('#importProfileSelect').val();
+						profileId = urlParams["profile"]
 						delete urlParams["config"];
+
+						if (profileId == undefined)
+							profileId = 1;
+
 						init(function() {
 							updateUrlConfig();
 						});
@@ -261,6 +265,14 @@ $( document ).ready(function() {
 					$(e.target).css('color', (isSnap ? '#00FF00' : '#FFFFFF'));
 				});
 
+				$('#importPreset').on('click', function(e)  {
+					$('#importPresetDiv').show().dialog({
+						width: 500,
+						title: "Import Preset"
+					});					
+				});
+
+
 				$('#getTinyUrl').on('click', function(e)  {
 					$('#tinyUrlDiv').show().dialog({
 						width: 500,
@@ -279,7 +291,43 @@ $( document ).ready(function() {
 					
 				});
 
+
+
 				$('#pageButtons').show();
+
+				$('#defaultPreset').on('click', function() {
+						width = parseInt($('html').css('width'), 10);
+						height = parseInt($('html').css('height'), 10);
+
+						map = getDefault();
+						map.containers.charms.top = height - 310;
+						map.containers.charms.left = 0;
+						map.containers.spells.top = height - 50 - map.containers.skills.height;
+						map.containers.spells.left = width - map.containers.spells.width;
+						map.containers.skills.top = height - 50 ;
+						map.containers.skills.left = width - map.containers.skills.width;
+						map.containers.items.top = 0;
+						map.containers.items.left = width - map.containers.items.width;
+						map.containers.dreamers.top = 53;
+						map.containers.dreamers.left = width - map.containers.dreamers.width;
+						map.containers.misc.top = 53;
+						map.containers.misc.left = width - (map.containers.dreamers.width + map.containers.misc.width);
+						map.containers.disabled.top = 178;
+						map.containers.disabled.left = 508;
+
+						init(function() {							
+							updateUrlConfig();
+						});
+				});
+
+				$('#hk2020Preset').on('click', function() {
+					map = getTournament();
+					delete urlParams["config"];
+
+					init(function() {
+						updateUrlConfig();
+					});
+				});
 
 				$('#copyUrl').on('click', function() {
 					$('#urlText').select();
@@ -1148,7 +1196,7 @@ $( document ).ready(function() {
 		
 		function getParameterByName(name) {
 			if (name in urlParams)
-				return urlParams[name];
+				return [name];
 			
 			return null;
 		}

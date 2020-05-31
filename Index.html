@@ -19,6 +19,7 @@
       
       <script type="text/javascript" src="lz-string.min.js"></script>
       <script type="text/javascript" src="default.js"></script>
+      <script type="text/javascript" src="tournament.js"></script>
       
       <link rel="stylesheet" href="main.css">
       <script type="text/javascript" src="main.js"></script>
@@ -30,6 +31,7 @@
           <div id="pageSettingsButton" class="pageButton">Page Settings</div>
           <div id="toggleSnapButton" class="pageButton" style="color: #00FF00;">Toggle Snap</div>
           <div id="getTinyUrl" class="pageButton">Get Config Url</div>
+          <div id="importPreset" class="pageButton">Import Preset</div>
           <div id="profiles" class="pageButton">
               <span>Profile:</span>
               <div id="profile1">1</div>
@@ -52,6 +54,14 @@
           <input type="button" id="copyTinyUrl" value="Copy Export URL to Clipboard" /><br />
 
       </div>
+
+        <div style="display:none" id="importPresetDiv">
+          Import premade layouts without a url
+          <br />
+          <input type="button" id="defaultPreset" value="Default" /><br />
+          <input type="button" id="hk2020Preset" value="HK2020 Randomizer Tournament" /><br />
+      </div>
+
       <div style="display:none" id="containerSettingDialog">
           <ul style="list-style-type:none">
               <li><label for="scale">Scale:</label><input type="text" id="scale" /></li>
