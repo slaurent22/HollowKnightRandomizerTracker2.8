@@ -717,9 +717,9 @@ function getDefault() {
 		"containers" : {
 			"charms": {
 				"itemsPerRow": 10,
-				"scale" : 40,
-				"width" : 500,
-				"height" : 200,
+				"scale" : 56,
+				"width" : 1328,
+				"height" : 135,
 				"left": 0,
 				"top":25,
 				"flourish" :"topRight",

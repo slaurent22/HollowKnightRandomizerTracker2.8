@@ -119,7 +119,8 @@ $( document ).ready(function() {
 						height = $('#setupPageHeight').val() - 4;
 
 						map = getDefault();
-						map.containers.charms.top = height - 310;
+						console.log(height);
+						map.containers.charms.top = height - 135;
 						map.containers.charms.left = 0;
 						map.containers.spells.top = height - 50 - map.containers.skills.height;
 						map.containers.spells.left = width - map.containers.spells.width;
@@ -300,7 +301,7 @@ $( document ).ready(function() {
 						height = parseInt($('html').css('height'), 10);
 
 						map = getDefault();
-						map.containers.charms.top = height - 310;
+						map.containers.charms.top = height - 135;
 						map.containers.charms.left = 0;
 						map.containers.spells.top = height - 50 - map.containers.skills.height;
 						map.containers.spells.left = width - map.containers.spells.width;
