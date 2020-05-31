@@ -254,18 +254,16 @@ $( document ).ready(function() {
 						map.containers.disabled.top = 178;
 						map.containers.disabled.left = 508;
 
-						init(function() {							
-							updateUrlConfig();
-						});
+											
+						updateUrlConfig();
+						
 				});
 
 				$('#hk2020Preset').on('click', function() {
 					map = getTournament();
 					delete urlParams["config"];
 
-					init(function() {
-						updateUrlConfig();
-					});
+					updateUrlConfig();
 				});
 				
 				$('#previewModeButton').on("click", function(e) {
