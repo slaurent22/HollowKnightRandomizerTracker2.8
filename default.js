@@ -619,7 +619,12 @@ function getDefault() {
 	return {
 		"settings" : {
 			"hasItemColor": "#07ff6e",
-			"version":1.0
+			"version":1.0,
+			"borderGlow": false,
+			"borderBlur": "4",
+			"borderColourObtain": "#FFFFFF",
+			"borderColourGave": "#FF0000",
+			"borderColourEquip": "#07FF6E"
 		},
 		"misc_containers" : {
 			"percent" : {

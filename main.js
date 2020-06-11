@@ -136,7 +136,18 @@ $( document ).ready(function() {
 						isEditing = true;
 						$('#pageWidth').val(width);
 						$('#pageHeight').val(height);
+
+						if(map.settings.borderColourEquip == null){
+							map.settings.borderGlow = false;
+							map.settings.borderColourEquip = "#07ff6e";
+							map.settings.borderColourObtain = "#ffffff";
+							map.settings.borderColourGave = "#FF0000";		
+						}
+
 						$('#borderGlowToggle').prop("checked", !map.settings.borderGlow);
+						$('#borderObtainC').val(map.settings.borderColourObtain);
+						$('#borderEquipC').val(map.settings.borderColourEquip);
+						$('#borderGaveC').val(map.settings.borderColourGave);
 						$('html').css({'width' : width + 'px', 'height' : height + 'px'});
 						urlParams.editing = "true";
 						if (profileId == undefined)
@@ -201,6 +212,7 @@ $( document ).ready(function() {
 
 				$('#pageWidth').val(width);
 				$('#pageHeight').val(height);
+
 				$(document.body).css({"background-color" : '#000000', "border" :"2px solid #00FF00"});
 
 				$('#containerSettingDialog').dialog("close");
@@ -421,6 +433,27 @@ $( document ).ready(function() {
 					if (isNumber(value)) {
 						$('html').css("height", value + "px");
 						urlParams.height = value;
+						updateUrlConfig();
+					}
+				});
+				$('#borderObtainC').on('change', function() {
+					var value = $('#borderObtainC').val();
+					if(/^#[0-9A-F]{6}$/i.test(value)){
+						map.settings.borderColourObtain = value;
+						updateUrlConfig();
+					}
+				});
+				$('#borderGaveC').on('change', function() {
+					var value = $('#borderGaveC').val();
+					if(/^#[0-9A-F]{6}$/i.test(value)){
+						map.settings.borderColourGave = value;
+						updateUrlConfig();
+					}
+				});
+				$('#borderEquipC').on('change', function() {
+					var value = $('#borderEquipC').val();
+					if(/^#[0-9A-F]{6}$/i.test(value)){
+						map.settings.borderColourEquip = value;
 						updateUrlConfig();
 					}
 				});
@@ -1155,12 +1188,19 @@ $( document ).ready(function() {
 			$('.container.hideIfSet div.itemDiv:has(>.multiple)').css("display", "block");
 
 			if(map.settings.borderGlow){
+
+				if(map.settings.borderColourEquip == null){
+					map.settings.borderColourEquip = "#07ff6e";
+					map.settings.borderColourObtain = "#ffffff";
+					map.settings.borderColourGave = "#FF0000";		
+				}
+
 				$(".itemDiv > img").css("filter", "grayscale(1) brightness(.5)");
 				$(".itemDiv > .multiple").css("filter", "");
-				$(".selected").css("filter", "drop-shadow(0px 0px 5px #07ff6e)");
-				$(".gaveItem").css("filter", "grayscale(1) brightness(.8) drop-shadow(0px 0px 5px #FF0000)");
-				$(".charmDiv > .selected").css("filter", "grayscale(1) brightness(.5) drop-shadow(0px 0px 5px white)");
-				$(".charmDiv > .equipped").css("filter", "drop-shadow(0px 0px 5px #07ff6e)");
+				$(".selected").css("filter", "drop-shadow(0px 0px 5px "+map.settings.borderColourEquip+")");
+				$(".gaveItem").css("filter", "grayscale(1) brightness(.8) drop-shadow(0px 0px 5px "+map.settings.borderColourGave+")");
+				$(".charmDiv > .selected").css("filter", "grayscale(1) brightness(.5) drop-shadow(0px 0px 5px "+map.settings.borderColourObtain+")");
+				$(".charmDiv > .equipped").css("filter", "drop-shadow(0px 0px 5px "+map.settings.borderColourEquip+")");
 			}
 
 
