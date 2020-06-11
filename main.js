@@ -136,6 +136,7 @@ $( document ).ready(function() {
 						isEditing = true;
 						$('#pageWidth').val(width);
 						$('#pageHeight').val(height);
+						$('#borderGlowToggle').prop("checked", !map.settings.borderGlow);
 						$('html').css({'width' : width + 'px', 'height' : height + 'px'});
 						urlParams.editing = "true";
 						if (profileId == undefined)
@@ -394,6 +395,17 @@ $( document ).ready(function() {
 					updateUrlConfig();
 				});
 				
+				$('#borderGlowToggle').on('change', function() {
+					if ($(this).is(':checked')) {
+					    map.settings.borderGlow = true;
+					  } else {
+					    map.settings.borderGlow = false;
+					  }
+					
+					updateUrlConfig();				
+					
+				});
+
 				$('#pageWidth').on('change', function() {
 					var value = $('#pageWidth').val();
 					
@@ -1141,6 +1153,17 @@ $( document ).ready(function() {
 			$('.container:not(.hideIfSet) div.itemDiv').css("display", "block");
 			$('.container.hideIfSet div.itemDiv:has(>.selected)').css("display", "block");
 			$('.container.hideIfSet div.itemDiv:has(>.multiple)').css("display", "block");
+
+			if(map.settings.borderGlow){
+				$(".itemDiv > img").css("filter", "grayscale(1) brightness(.5)");
+				$(".itemDiv > .multiple").css("filter", "");
+				$(".selected").css("filter", "drop-shadow(0px 0px 5px #07ff6e)");
+				$(".gaveItem").css("filter", "grayscale(1) brightness(.8) drop-shadow(0px 0px 5px #FF0000)");
+				$(".charmDiv > .selected").css("filter", "grayscale(1) brightness(.5) drop-shadow(0px 0px 5px white)");
+				$(".charmDiv > .equipped").css("filter", "drop-shadow(0px 0px 5px #07ff6e)");
+			}
+
+
 		}
 		
 		function updateUrlConfig() {
