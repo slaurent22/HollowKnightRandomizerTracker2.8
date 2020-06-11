@@ -155,6 +155,18 @@ $( document ).ready(function() {
 
 						init(function() {
 							
+							if(map.settings.borderColourEquip == null){
+								map.settings.borderGlow = false;
+								map.settings.borderColourEquip = "#07ff6e";
+								map.settings.borderColourObtain = "#ffffff";
+								map.settings.borderColourGave = "#FF0000";		
+							}
+
+							$('#borderGlowToggle').prop("checked", !map.settings.borderGlow);
+							$('#borderObtainC').val(map.settings.borderColourObtain);
+							$('#borderEquipC').val(map.settings.borderColourEquip);
+							$('#borderGaveC').val(map.settings.borderColourGave);
+
 							updateUrlConfig();
 						});
 						
