@@ -74,7 +74,7 @@ namespace PlayerDataDump
         protected override void OnClose(CloseEventArgs e)
         {
             base.OnClose(e);
-            
+
             ModHooks.Instance.NewGameHook -= NewGame;
             ModHooks.Instance.SavegameLoadHook -= LoadSave;
             ModHooks.Instance.BeforeSavegameSaveHook -= BeforeSave;
@@ -82,12 +82,12 @@ namespace PlayerDataDump
             ModHooks.Instance.SetPlayerIntHook -= EchoInt;
 
             ModHooks.Instance.ApplicationQuitHook -= OnQuit;
-            
+
             PlayerDataDump.Instance.Log("CLOSE: Code:" + e.Code + ", Reason:" + e.Reason);
         }
 
-        
-        
+
+
         protected override void OnOpen()
         {
             PlayerDataDump.Instance.Log("OPEN");
@@ -126,7 +126,7 @@ namespace PlayerDataDump
         public void EchoBool(string var, bool value)
         {
             PlayerDataDump.Instance.LogDebug($"EchoBool: {var} = {value}");
-        
+
             if (var == "RandomizerMod.Monomon" || var == "AreaRando.Monomon" || var == "monomonDefeated")
             {
                 var= "maskBrokenMonomon";
@@ -183,7 +183,7 @@ namespace PlayerDataDump
         {
             if (State != WebSocketState.Open) return;
             try
-            {               
+            {
                 int a = RandomizerMod.RandoLogger.obtainedLocations.Count;
                 int b = RandomizerMod.RandoLogger.randomizedLocations.Count;
                 int c = RandomizerMod.RandoLogger.uncheckedLocations.Count;
@@ -195,8 +195,8 @@ namespace PlayerDataDump
 
                 //SendMessage("tpercent", tPercent.ToString());
                 SendMessage("rpercent", rPercent.ToString());
-                
-                
+
+
             } catch
             {
 
@@ -233,19 +233,103 @@ namespace PlayerDataDump
                     }
                     SendMessage("rando_type", msgText.Trim());
 
+                    // Preset reference:
+                    // https://github.com/flibber-hk/HollowKnight.RandomizerMod/blob/6d46547e79a1d472791070477aa18450f3364363/RandomizerMod3.0/MenuChanger.cs#L269
+
+                    // "Standard", formerly "Super Mini Junk Pit"
+                    // "Junk Pit" was this minus Stags
+                    bool selectionsTrueStandard =
+                        settings.RandomizeDreamers &&
+                        settings.RandomizeSkills &&
+                        settings.RandomizeCharms &&
+                        settings.RandomizeKeys &&
+                        settings.RandomizeGeoChests &&
+                        settings.RandomizeMaskShards &&
+                        settings.RandomizeVesselFragments &&
+                        settings.RandomizePaleOre &&
+                        settings.RandomizeCharmNotches &&
+                        settings.RandomizeRancidEggs &&
+                        settings.RandomizeRelics &&
+                        settings.RandomizeStags;
+
+                    // "Super", formerly "Super Junk Pit"
+                    bool selectionsTrueSuper =
+                        selectionsTrueStandard &&
+                        settings.RandomizeMaps &&
+                        settings.RandomizeGrubs &&
+                        settings.RandomizeWhisperingRoots;
+
+                    // "LifeTotems"
+                    bool selectionsTrueLifeTotems =
+                        selectionsTrueStandard &&
+                        settings.RandomizeLifebloodCocoons &&
+                        settings.RandomizeSoulTotems &&
+                        settings.RandomizePalaceTotems;
+
+                    // "Spoiler DAB" (Double Anti Bingo)
+                    bool selectionsTrueSpoilerDAB =
+                        selectionsTrueStandard &&
+                        settings.RandomizeMaps &&
+                        settings.RandomizeWhisperingRoots &&
+                        settings.RandomizeLifebloodCocoons &&
+                        settings.RandomizeSoulTotems;
 
 
-                    bool presetClassic = !settings.RandomizeDreamers && settings.RandomizeSkills && settings.RandomizeCharms && !settings.RandomizeKeys && settings.RandomizeGeoChests && !settings.RandomizeMaskShards && !settings.RandomizeVesselFragments && !settings.RandomizePaleOre && !settings.RandomizeCharmNotches && !settings.RandomizeRancidEggs && !settings.RandomizeRelics;
-                    bool presetProgressive = settings.RandomizeDreamers && settings.RandomizeSkills && settings.RandomizeCharms && settings.RandomizeKeys && !settings.RandomizeGeoChests && !settings.RandomizeMaskShards && !settings.RandomizeVesselFragments && !settings.RandomizePaleOre && !settings.RandomizeCharmNotches && !settings.RandomizeRancidEggs && !settings.RandomizeRelics;
-                    bool presetCompletionist = settings.RandomizeDreamers && settings.RandomizeSkills && settings.RandomizeCharms && settings.RandomizeKeys && settings.RandomizeGeoChests && settings.RandomizeMaskShards && settings.RandomizeVesselFragments && settings.RandomizePaleOre && settings.RandomizeCharmNotches && !settings.RandomizeRancidEggs && !settings.RandomizeRelics;
-                    bool presetJunkPit = settings.RandomizeDreamers && settings.RandomizeSkills && settings.RandomizeCharms && settings.RandomizeKeys && settings.RandomizeGeoChests && settings.RandomizeMaskShards && settings.RandomizeVesselFragments && settings.RandomizePaleOre && settings.RandomizeCharmNotches && settings.RandomizeRancidEggs && settings.RandomizeRelics;
+                    // new age set - stuff added more recently
+                    bool selectionsFalseNewAgeSet =
+                        !settings.RandomizeLoreTablets &&
+                        !settings.RandomizePalaceTablets &&
+                        !settings.RandomizeGrimmkinFlames &&
+                        !settings.RandomizeBossEssence &&
+                        !settings.RandomizeBossGeo;
 
-                    bool presetCollector = settings.RandomizeDreamers && settings.RandomizeSkills && settings.RandomizeCharms && settings.RandomizeKeys &&
-                        !settings.RandomizeGeoChests && !settings.RandomizeMaskShards && !settings.RandomizeVesselFragments && !settings.RandomizePaleOre &&
-                        !settings.RandomizeCharmNotches && !settings.RandomizeRancidEggs && !settings.RandomizeRelics && settings.RandomizeMaps &&
-                        settings.RandomizeStags && settings.RandomizeGrubs && settings.RandomizeWhisperingRoots;
-                    bool presetSuperJunkPit = presetJunkPit && settings.RandomizeMaps && settings.RandomizeStags && settings.RandomizeGrubs && settings.RandomizeWhisperingRoots;
-                    bool presetSuperMiniJunkPit = presetJunkPit && settings.RandomizeStags;
+                    // junk set - stuff that Super adds to Standard
+                    bool selectionsFalseJunkSet =
+                        !settings.RandomizeMaps &&
+                        !settings.RandomizeGrubs &&
+                        !settings.RandomizeWhisperingRoots;
+
+                    // "Super"
+                    bool selectionsFalseSuper =
+                        !settings.RandomizeRocks &&
+                        !settings.RandomizeLifebloodCocoons &&
+                        !settings.RandomizeSoulTotems &&
+                        !settings.RandomizePalaceTotems &&
+                        selectionsFalseNewAgeSet;
+
+                    // "Standard"
+                    bool selectionsFalseStandard =
+                        selectionsFalseJunkSet &&
+                        selectionsFalseSuper;
+
+                    // "LifeTotems"
+                    bool selectionsFalseLifeTotems =
+                        selectionsFalseJunkSet &&
+                        !settings.RandomizeRocks &&
+                        selectionsFalseNewAgeSet;
+
+                    // "Spoiler DAB"
+                    bool selectionsFalseSpoilerDAB =
+                        !settings.RandomizeGrubs &&
+                        !settings.RandomizeRocks &&
+                        !settings.RandomizePalaceTotems &&
+                        selectionsFalseNewAgeSet;
+
+                    bool presetStandard   = selectionsTrueStandard   && selectionsFalseStandard;
+                    bool presetSuper      = selectionsTrueSuper      && selectionsFalseSuper;
+                    bool presetLifeTotems = selectionsTrueLifeTotems && selectionsFalseLifeTotems;
+                    bool presetSpoilerDAB = selectionsTrueSpoilerDAB && selectionsFalseSpoilerDAB;
+
+                    // "EVERYTHING" in aggressive all-caps
+                    bool presetEverything =
+                        selectionsTrueSuper &&
+                        selectionsTrueLifeTotems &&
+                        selectionsTrueSpoilerDAB &&
+                        settings.RandomizeRocks &&
+                        settings.RandomizeLoreTablets &&
+                        settings.RandomizeGrimmkinFlames &&
+                        settings.RandomizeBossEssence &&
+                        settings.RandomizeBossGeo;
 
                     SendMessage("seed", settings.Seed.ToString());
                     if (settings.AcidSkips && settings.FireballSkips && settings.MildSkips && settings.ShadeSkips && settings.SpikeTunnels && settings.DarkRooms && settings.SpicySkips)
@@ -255,20 +339,16 @@ namespace PlayerDataDump
                     else
                         SendMessage("mode", "Custom");
 
-                    if (presetSuperJunkPit)
-                        msgText = "Super Junk Pit";
-                    else if (presetSuperMiniJunkPit)
-                        msgText = "Mini Super Junk Pit";
-                    else if (presetJunkPit)
-                        msgText = "Junk Pit";
-                    else if (presetCollector)
-                        msgText = "Collector";
-                    else if (presetCompletionist)
-                        msgText = "Completionist";
-                    else if (presetProgressive)
-                        msgText = "Progressive";
-                    else if (presetClassic)
-                        msgText = "Classic";
+                    if (presetStandard)
+                        msgText = "Standard";
+                    else if (presetSuper)
+                        msgText = "Super";
+                    else if (presetLifeTotems)
+                        msgText = "LifeTotems";
+                    else if (presetSpoilerDAB)
+                        msgText = "Spoiler DAB";
+                    else if (presetEverything)
+                        msgText = "EVERYTHING";
                     else
                         msgText = $"Custom";
 
