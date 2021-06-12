@@ -264,7 +264,8 @@ namespace PlayerDataDump
                         selectionsTrueStandard &&
                         settings.RandomizeLifebloodCocoons &&
                         settings.RandomizeSoulTotems &&
-                        settings.RandomizePalaceTotems;
+                        settings.RandomizePalaceTotems &&
+                        settings.RandomizeBossGeo;
 
                     // "Spoiler DAB" (Double Anti Bingo)
                     bool selectionsTrueSpoilerDAB =
@@ -279,9 +280,7 @@ namespace PlayerDataDump
                     bool selectionsFalseNewAgeSet =
                         !settings.RandomizeLoreTablets &&
                         !settings.RandomizePalaceTablets &&
-                        !settings.RandomizeGrimmkinFlames &&
-                        !settings.RandomizeBossEssence &&
-                        !settings.RandomizeBossGeo;
+                        !settings.RandomizeGrimmkinFlames;
 
                     // junk set - stuff that Super adds to Standard
                     bool selectionsFalseJunkSet =
@@ -306,7 +305,10 @@ namespace PlayerDataDump
                     bool selectionsFalseLifeTotems =
                         selectionsFalseJunkSet &&
                         !settings.RandomizeRocks &&
-                        selectionsFalseNewAgeSet;
+                        !settings.RandomizeLoreTablets &&
+                        !settings.RandomizePalaceTablets &&
+                        !settings.RandomizeGrimmkinFlames &&
+                        !settings.RandomizeBossEssence;
 
                     // "Spoiler DAB"
                     bool selectionsFalseSpoilerDAB =
